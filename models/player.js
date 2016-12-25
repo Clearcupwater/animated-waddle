@@ -12,9 +12,9 @@ var playerSchema = new schema({
 		required:true
 	},
 
-	team:[
-		{type:schema.Types.ObjectId, ref:'team'}
-	]
+	team: {type:schema.Types.ObjectId, 
+		ref:'team'}
+	
 	});
 
 

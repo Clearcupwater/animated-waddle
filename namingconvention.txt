@@ -1,9 +1,0 @@
-all schemas are in models
-schemas are singular
-
-
-all models are in models
-model is singular
-
-routes are in in routes
-route responses are plural
