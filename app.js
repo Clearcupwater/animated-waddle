@@ -4,6 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var allowCrossDomain = require('./config/allowCrossDomain');
 
 
 //this is the location of the routes and what to do with the http request
@@ -24,6 +25,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
