@@ -4,15 +4,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+var ejwt = require('express-jwt');
+var passport = require('passport');
+var config = require('./config/config');
 
 //this is the location of the routes and what to do with the http request
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var users = require('./routes/users');
 var players = require('./routes/players');
 var teams = require('./routes/teams');
-
-
 
 var app = express();
 
@@ -27,14 +27,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//this tells the file what routes are available on http request
-app.use('/', routes);
+//this tells the file what routes are available on http request and authenticates the routes
+app.use(passport.initialize());
+app.use(ejwt({secret: config.secret}).unless({path: ['/','/signup', '/authenticate', '/players']}));
+app.use('/', index);
 app.use('/users', users);
 app.use('/players',players);
 app.use('/teams',teams);
 
 //connect to mongoose and check ready state
-mongoose.connect('mongodb://localhost/basketball');
+mongoose.connect(config.database);
 mongoose.connection.on('open', function (ref){
 	console.log('Connected to Mongo Server db basketball on port 27017');
 }
