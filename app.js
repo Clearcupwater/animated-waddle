@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var ejwt = require('express-jwt');
 var passport = require('passport');
 var config = require('./config/config');
+var allowCrossDomain = require('./config/allowCrossDomain');
+
 
 //this is the location of the routes and what to do with the http request
 var index = require('./routes/index');
@@ -24,6 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
