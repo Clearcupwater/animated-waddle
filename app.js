@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //this tells the file what routes are available on http request and authenticates the routes
 app.use(passport.initialize());
-app.use(ejwt({secret: config.secret}).unless({path: ['/','/signup', '/authenticate', '/players']}));
+app.use(ejwt({secret: config.secret}).unless({path: ['/','/signup', '/authenticate']}));
 app.use('/', index);
 app.use('/users', users);
 app.use('/players',players);
